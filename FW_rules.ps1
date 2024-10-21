@@ -7,7 +7,6 @@ $ports = @(
     389,    # LDAP
     445,    # SMB
     464,    # Kerberos Password Change
-    636,    # LDAP SSL
     3268,   # LDAP GC
     3269,   # LDAP GC SSL
     5722,   # DFS-R

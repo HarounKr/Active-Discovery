@@ -1,0 +1,28 @@
+# Ajout d'un poste ubuntu a l 'ad 
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install realmd sssd sssd-tools samba-common-bin samba-libs packagekit krb5-user
+
+realm join --user=Administrateur domolia.local
+realm discover domolia.local
+
+
+sudo vim /etc/resolv.conf
+sudo vim /etc/krb5.conf/
+sudo vim /etc/sssd/sssd.conf
+sudo chmod 600 /etc/sssd/sssd.conf
+sudo bash -c "cat > /usr/share/pam-configs/mkhomedir" <<EOF
+Name: activate mkhomedir
+Default: yes
+Priority: 900
+Session-Type: Additional
+Session:
+        required                        pam_mkhomedir.so umask=0022 skel=/etc/skel
+EOF
+sudo pam-auth-update # Tout cocher
+sudo systemctl restart sssd
+
+# Test 
+id auser@DOMOLIA.LOCAL
+kinit Administrateur@DOMOLIA.LOCAL
+klist 
