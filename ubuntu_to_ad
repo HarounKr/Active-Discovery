@@ -6,7 +6,8 @@ sudo apt install realmd sssd sssd-tools samba-common-bin samba-libs packagekit k
 realm join --user=Administrateur domolia.local
 realm discover domolia.local
 
-
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
 sudo vim /etc/resolv.conf
 sudo vim /etc/krb5.conf/
 sudo vim /etc/sssd/sssd.conf
@@ -23,6 +24,6 @@ sudo pam-auth-update # Tout cocher
 sudo systemctl restart sssd
 
 # Test 
-id auser@DOMOLIA.LOCAL
-kinit Administrateur@DOMOLIA.LOCAL
+id Administrateur
+kinit Administrateur
 klist 
